@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F324D7F8-E4FC-4B3E-8AC9-94A7F07D66B4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Domain</RootNamespace>
+    <AssemblyName>Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Billing\Charge.cs" />
+    <Compile Include="Billing\Invoice.cs" />
+    <Compile Include="Billing\Module\BillingModule.cs" />
+    <Compile Include="Billing\Repository\IInvoiceRepository.cs" />
+    <Compile Include="Billing\Service\BillingService.cs" />
+    <Compile Include="Billing\Service\IBillingService.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="Log\Module\PaymentTransactionLogModule.cs" />
+    <Compile Include="Log\PaymentTransactionLog.cs" />
+    <Compile Include="Log\Repository\IPaymentTransactionLogRepository.cs" />
+    <Compile Include="Log\Service\ILoggingService.cs" />
+    <Compile Include="Log\Service\LoggingService.cs" />
+    <Compile Include="Transaction\Module\PaymentTransactionServiceModule.cs" />
+    <Compile Include="Transaction\Service\IPaymentTransactionService.cs" />
+    <Compile Include="Transaction\Service\PaymentTransactionService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transaction\Authorization.cs" />
+    <Compile Include="Transaction\Capture.cs" />
+    <Compile Include="Transaction\Repository\IAuthorizationRepository.cs" />
+    <Compile Include="Transaction\Repository\ICaptureRepository.cs" />
+    <Compile Include="Transaction\Repository\IPaymentTransactionRepository.cs" />
+    <Compile Include="Transaction\PaymentTransaction.cs" />
+    <Compile Include="Transfer\CaptureTransfer.cs" />
+    <Compile Include="Transfer\ChargeTransfer.cs" />
+    <Compile Include="Transfer\Module\TransferDomainServiceModule.cs" />
+    <Compile Include="Transfer\Repository\ITransactionTransferRepository.cs" />
+    <Compile Include="Transfer\Service\ITransactionTransferService.cs" />
+    <Compile Include="Transfer\Service\TransactionTransferService.cs" />
+    <Compile Include="Transfer\TransactionTransfer.cs" />
+    <Compile Include="Transfer\TransferEntity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{01C10495-7924-4163-8E1C-83853819572D}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
