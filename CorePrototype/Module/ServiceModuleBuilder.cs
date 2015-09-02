@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Autofac;
 using DataAccess;
@@ -20,7 +21,7 @@ namespace CorePrototype.Module
 
         public IContainer Container { get; private set; }
 
-        public void Build()
+        public void Build(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
             RegisterAutofacModules();
             RegisterNHibernateConfigs();
@@ -40,12 +41,12 @@ namespace CorePrototype.Module
             }
         }
 
-        private void RegisterNHibernateConfigs()
+        private void RegisterNHibernateConfigs(IsolationLevel isolationLevel)
         {
             foreach (var serviceModule in _serviceModules)
             {
                 var mappingsDistincted = GetItemsDistincted(serviceModule.Mappings);
-                _sessionFactoryBuilder.Build(_builder, mappingsDistincted, serviceModule.Name);   
+                _sessionFactoryBuilder.Build(_builder, mappingsDistincted, serviceModule.Name, isolationLevel);   
             }
         }
 

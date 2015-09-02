@@ -63,7 +63,6 @@
     <Compile Include="Log\Module\LogMappingConfig.cs" />
     <Compile Include="Log\PaymentTransactionLogMap.cs" />
     <Compile Include="Log\Repository\PaymentTransactionLogRepository.cs" />
-    <Compile Include="NHibernateConfig.cs" />
     <Compile Include="MappingConfig.cs" />
     <Compile Include="RepositoryBase.cs" />
     <Compile Include="SessionFactoryBuilder.cs" />

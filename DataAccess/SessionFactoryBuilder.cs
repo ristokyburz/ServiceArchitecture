@@ -16,10 +16,10 @@ namespace DataAccess
     {
         private ICollection<MappingConfig> _maps;
 
-        public void Build(ContainerBuilder builder, ICollection<MappingConfig> maps, string moduleName)
+        public void Build(ContainerBuilder builder, ICollection<MappingConfig> maps, string moduleName, IsolationLevel isolationLevel)
         {
             _maps = maps;
-            var factory = CreateSessionFactory(moduleName, IsolationLevel.ReadCommitted, Map);
+            var factory = CreateSessionFactory(moduleName, isolationLevel, Map);
 
             builder.Register(x => new UnitOfWorkFactory(factory))
                 .InstancePerLifetimeScope()
