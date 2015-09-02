@@ -24,7 +24,7 @@ namespace CorePrototype.Module
         public void Build(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
             RegisterAutofacModules();
-            RegisterNHibernateConfigs();
+            RegisterNHibernateConfigs(isolationLevel);
             Container = _builder.Build();
         }
 
