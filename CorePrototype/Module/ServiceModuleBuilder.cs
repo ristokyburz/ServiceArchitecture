@@ -21,10 +21,10 @@ namespace CorePrototype.Module
 
         public IContainer Container { get; private set; }
 
-        public void Build(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
+        public void Build()
         {
             RegisterAutofacModules();
-            RegisterNHibernateConfigs(isolationLevel);
+            RegisterNHibernateConfigs();
             Container = _builder.Build();
         }
 
@@ -41,12 +41,12 @@ namespace CorePrototype.Module
             }
         }
 
-        private void RegisterNHibernateConfigs(IsolationLevel isolationLevel)
+        private void RegisterNHibernateConfigs()
         {
             foreach (var serviceModule in _serviceModules)
             {
                 var mappingsDistincted = GetItemsDistincted(serviceModule.Mappings);
-                _sessionFactoryBuilder.Build(_builder, mappingsDistincted, serviceModule.Name, isolationLevel);   
+                _sessionFactoryBuilder.Build(_builder, mappingsDistincted, serviceModule.Name, serviceModule.IsolationLevel);   
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using Common.Container;
 using DataAccess;
 
@@ -8,6 +9,7 @@ namespace CorePrototype.Module
     {
         protected ServiceModule()
         {
+            IsolationLevel = IsolationLevel.ReadCommitted;
             Modules = new List<NamedModule>();
             Mappings = new List<MappingConfig>();
         }
@@ -18,6 +20,8 @@ namespace CorePrototype.Module
 
         public List<MappingConfig> Mappings { get; private set; }
 
+        public IsolationLevel IsolationLevel { get; private set; }
+
         protected void IncludeServiceModule(ServiceModule serviceModule)
         {
             Modules.AddRange(serviceModule.Modules);
@@ -27,6 +31,11 @@ namespace CorePrototype.Module
         protected void ModuleName(string name)
         {
             Name = name;
+        }
+
+        protected void SetIsolationLevel(IsolationLevel isolationLevel)
+        {
+            IsolationLevel = isolationLevel;
         }
 
         protected void Module(NamedModule module)

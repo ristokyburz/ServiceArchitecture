@@ -3,7 +3,5 @@
     public interface IUnitOfWorkFactory
     {
         IUnitOfWork UnitOfWork();
-
-        IUnitOfWork ReadUncommittedUnitOfWork(); 
     }
 }

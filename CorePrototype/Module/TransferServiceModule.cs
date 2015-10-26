@@ -1,4 +1,5 @@
-﻿using DataAccess.Transfer.Module;
+﻿using System.Data;
+using DataAccess.Transfer.Module;
 using Domain.Transfer.Module;
 
 namespace CorePrototype.Module
@@ -7,6 +8,8 @@ namespace CorePrototype.Module
     {
         public TransferServiceModule()
         {
+			SetIsolationLevel(IsolationLevel.ReadUncommitted);
+
             ModuleName("TransferModule");
 
             Module(new TransferDataAccessModule());

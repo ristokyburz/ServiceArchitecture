@@ -1,4 +1,5 @@
-﻿using DataAccess.Log.Module;
+﻿using System.Data;
+using DataAccess.Log.Module;
 using Domain.Log.Module;
 
 namespace CorePrototype.Module
@@ -7,6 +8,8 @@ namespace CorePrototype.Module
     {
         public LoggingServiceModule()
         {
+			SetIsolationLevel(IsolationLevel.ReadUncommitted);
+
             ModuleName("LoggingModule");
 
             Module(new LogDataAccessModule());

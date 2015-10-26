@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using Autofac;
 using Common.DataAccess;
 using FluentNHibernate.Cfg;
@@ -21,7 +20,7 @@ namespace DataAccess
             _maps = maps;
             var factory = CreateSessionFactory(moduleName, isolationLevel, Map);
 
-            builder.Register(x => new UnitOfWorkFactory(factory))
+            builder.Register(x => new UnitOfWorkFactory(factory, isolationLevel))
                 .InstancePerLifetimeScope()
                 .Named<IUnitOfWorkFactory>(moduleName);
         }
@@ -36,8 +35,8 @@ namespace DataAccess
 
         private ISessionFactory CreateSessionFactory(string moduleName, IsolationLevel isolationLevel, Action<MappingConfiguration> moduleMappings)
         {
-            string connectionString = @"yourConnectionString";
-            connectionString += ";Application Name=" + moduleName;
+			string connectionString = @"yourConnectionString";
+			connectionString += ";Application Name=" + moduleName;
 
             return Fluently.Configure()
                 .Database(MsSqlConfiguration.MsSql2008.ConnectionString(connectionString)
