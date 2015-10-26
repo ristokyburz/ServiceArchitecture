@@ -11,9 +11,9 @@ namespace DataAccess.Transaction.Repository
         private readonly PaymentTransaction.Factory _paymentTransactionFactory;
 
         public PaymentTransactionRepository(
-            IUnitOfWorkFactory unitOfWorkFactory,
+            ISimpleUnitOfWork unitOfWork,
             PaymentTransaction.Factory paymentTransactionFactory)
-            : base(unitOfWorkFactory)
+            : base(unitOfWork)
         {
             _paymentTransactionFactory = paymentTransactionFactory;
         }
@@ -34,32 +34,22 @@ namespace DataAccess.Transaction.Repository
 
         private Capture GetCapture(string transactionId)
         {
-            using (var unitOfWork = UnitOfWorkFactory.UnitOfWork())
-            {
-                var capture = unitOfWork
-                    .Session
-                    .Query<Capture>()
-                    .SingleOrDefault(x => x.TransactionId == transactionId);
+            var capture = UnitOfWork
+                .Session
+                .Query<Capture>()
+                .SingleOrDefault(x => x.TransactionId == transactionId);
 
-                unitOfWork.Commit();
-
-                return capture;
-            }
+            return capture;
         }
 
         public Authorization GetAuthorization(string transactionId)
         {
-            using (var unitOfWork = UnitOfWorkFactory.UnitOfWork())
-            {
-                var authorization = unitOfWork
-                    .Session
-                    .Query<Authorization>()
-                    .SingleOrDefault(x => x.TransactionId == transactionId);
+            var authorization = UnitOfWork
+                .Session
+                .Query<Authorization>()
+                .SingleOrDefault(x => x.TransactionId == transactionId);
 
-                unitOfWork.Commit();
-
-                return authorization;
-            }
+            return authorization;
         }
     }
 }

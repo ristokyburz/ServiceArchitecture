@@ -11,31 +11,26 @@ namespace DataAccess.Transfer.Repository
         private readonly TransactionTransfer.Factory _transactionTransferFactory;
 
         public TransactionTransferRepository(
-            IUnitOfWorkFactory unitOfWorkFactory,
+            ISimpleUnitOfWork unitOfWork,
             TransactionTransfer.Factory transactionTransferFactory)
-            : base(unitOfWorkFactory)
+            : base(unitOfWork)
         {
             _transactionTransferFactory = transactionTransferFactory;
         }
 
         public TransactionTransfer GetTransactionTransfer(string transactionId)
         {
-            using (var unitOfWork = UnitOfWorkFactory.UnitOfWork())
-            {
-                var captureTransfer = unitOfWork
-                    .Session
-                    .Query<CaptureTransfer>()
-                    .SingleOrDefault(x => x.TransactionId == transactionId);
+            var captureTransfer = UnitOfWork
+                .Session
+                .Query<CaptureTransfer>()
+                .SingleOrDefault(x => x.TransactionId == transactionId);
 
-                var chargeTransfer = unitOfWork
-                    .Session
-                    .Query<ChargeTransfer>()
-                    .SingleOrDefault(x => x.TransactionId == transactionId);
+			var chargeTransfer = UnitOfWork
+                .Session
+                .Query<ChargeTransfer>()
+                .SingleOrDefault(x => x.TransactionId == transactionId);
 
-                unitOfWork.Commit();
-
-                return _transactionTransferFactory(transactionId, captureTransfer, chargeTransfer);
-            }
+            return _transactionTransferFactory(transactionId, captureTransfer, chargeTransfer);
         }
 
         public void Save(TransactionTransfer transactionTransfer)

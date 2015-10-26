@@ -11,7 +11,7 @@ namespace DataAccess.Transfer.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(x => new TransactionTransferRepository(x.ResolveNamed<IUnitOfWorkFactory>(ModuleName), x.Resolve<TransactionTransfer.Factory>())).As<ITransactionTransferRepository>();
+			builder.Register(x => new TransactionTransferRepository(x.ResolveNamed<ISimpleUnitOfWork>(ModuleName), x.Resolve<TransactionTransfer.Factory>())).As<ITransactionTransferRepository>();
         } 
     }
 }

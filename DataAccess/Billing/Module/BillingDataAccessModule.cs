@@ -11,7 +11,7 @@ namespace DataAccess.Billing.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(x => new InvoiceRepository(x.ResolveNamed<IUnitOfWorkFactory>(ModuleName), x.Resolve<Invoice.Factory>())).As<IInvoiceRepository>();
+			builder.Register(x => new InvoiceRepository(x.ResolveNamed<ISimpleUnitOfWork>(ModuleName), x.Resolve<Invoice.Factory>())).As<IInvoiceRepository>();
         }
     }
 }

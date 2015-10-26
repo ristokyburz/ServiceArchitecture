@@ -15,7 +15,6 @@ namespace Domain.Transaction.Module
             builder.RegisterType<PaymentTransaction>();
             builder.Register(x =>
                 new PaymentTransactionService(
-                    x.ResolveNamed<IUnitOfWorkFactory>(ModuleName), 
                     x.Resolve<IPaymentTransactionRepository>(),
                     x.Resolve<IBillingService>(), 
                     x.Resolve<ITransactionTransferService>()))

@@ -6,26 +6,17 @@ namespace Domain.Log.Service
 {
     public class LoggingService : ILoggingService
     {
-        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly IPaymentTransactionLogRepository _paymentTransactionLogRepository;
 
-        public LoggingService(
-            IUnitOfWorkFactory unitOfWorkFactory,
-            IPaymentTransactionLogRepository paymentTransactionLogRepository)
+        public LoggingService(IPaymentTransactionLogRepository paymentTransactionLogRepository)
         {
-            _unitOfWorkFactory = unitOfWorkFactory;
             _paymentTransactionLogRepository = paymentTransactionLogRepository;
         }
 
         public void Log(string transactionId, string message)
         {
-            using (var unitOfWork = _unitOfWorkFactory.UnitOfWork())
-            {
-                var log = CreateLog(transactionId, message);
-                _paymentTransactionLogRepository.SavePaymentTransactionLog(log);
-
-                unitOfWork.Commit();
-            }
+            var log = CreateLog(transactionId, message);
+            _paymentTransactionLogRepository.SavePaymentTransactionLog(log);
         }
 
         private PaymentTransactionLog CreateLog(string transactionId, string message)

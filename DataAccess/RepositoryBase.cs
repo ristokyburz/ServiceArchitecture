@@ -5,23 +5,18 @@ namespace DataAccess
 {
     public class RepositoryBase
     {
-        public RepositoryBase(IUnitOfWorkFactory unitOfWorkFactory)
+        public RepositoryBase(ISimpleUnitOfWork unitOfWork)
         {
-            UnitOfWorkFactory = unitOfWorkFactory;
+            UnitOfWork = unitOfWork;
         }
 
-        public IUnitOfWorkFactory UnitOfWorkFactory { get; private set; }
+		public ISimpleUnitOfWork UnitOfWork { get; private set; }
 
         public void Save(Entity entity)
         {
-            using (var unitOfWork = UnitOfWorkFactory.UnitOfWork())
+            if (entity != null)
             {
-                if (entity != null)
-                {
-                    unitOfWork.Session.SaveOrUpdate(entity);    
-                }
-                
-                unitOfWork.Commit();
+				UnitOfWork.Session.SaveOrUpdate(entity);    
             }
         }
     }

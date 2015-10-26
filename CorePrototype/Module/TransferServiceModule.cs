@@ -8,8 +8,6 @@ namespace CorePrototype.Module
     {
         public TransferServiceModule()
         {
-			SetIsolationLevel(IsolationLevel.ReadUncommitted);
-
             ModuleName("TransferModule");
 
             Module(new TransferDataAccessModule());

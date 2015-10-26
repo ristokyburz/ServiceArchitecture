@@ -8,24 +8,19 @@ namespace DataAccess.Transaction.Repository
 {
     public class AuthorizationRepository : RepositoryBase, IAuthorizationRepository
     {
-        public AuthorizationRepository(IUnitOfWorkFactory unitOfWorkFactory)
-            : base(unitOfWorkFactory)
+        public AuthorizationRepository(ISimpleUnitOfWork unitOfWork)
+            : base(unitOfWork)
         {
         }
 
         public Authorization GetAuthorization(string transactionId)
         {
-            using (var unitOfWork = UnitOfWorkFactory.UnitOfWork())
-            {
-                var authorization = unitOfWork
-                    .Session
-                    .Query<Authorization>()
-                    .SingleOrDefault(x => x.TransactionId == transactionId);
+            var authorization = UnitOfWork
+                .Session
+                .Query<Authorization>()
+                .SingleOrDefault(x => x.TransactionId == transactionId);
 
-                unitOfWork.Commit();
-
-                return authorization;
-            }
+            return authorization;
         }
     }
 }

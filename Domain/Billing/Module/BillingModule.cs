@@ -14,7 +14,6 @@ namespace Domain.Billing.Module
             builder.RegisterType<Invoice>();
             builder.Register(x => 
                 new BillingService(
-                    x.ResolveNamed<IUnitOfWorkFactory>(ModuleName), 
                     x.Resolve<IInvoiceRepository>(),
                     x.Resolve<ITransactionTransferService>()))
                 .As<IBillingService>();

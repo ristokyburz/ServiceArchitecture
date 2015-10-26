@@ -10,7 +10,7 @@ namespace DataAccess.Log.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(x => new PaymentTransactionLogRepository(x.ResolveNamed<IUnitOfWorkFactory>(ModuleName))).As<IPaymentTransactionLogRepository>();
+            builder.Register(x => new PaymentTransactionLogRepository(x.ResolveNamed<ISimpleUnitOfWork>(ModuleName))).As<IPaymentTransactionLogRepository>();
         }
     }
 }

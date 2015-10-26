@@ -11,9 +11,9 @@ namespace DataAccess.Transaction.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(x => new PaymentTransactionRepository(x.ResolveNamed<IUnitOfWorkFactory>(ModuleName), x.Resolve<PaymentTransaction.Factory>())).As<IPaymentTransactionRepository>();
-            builder.Register(x => new AuthorizationRepository(x.ResolveNamed<IUnitOfWorkFactory>(ModuleName))).As<IAuthorizationRepository>();
-            builder.Register(x => new CaptureRepository(x.ResolveNamed<IUnitOfWorkFactory>(ModuleName))).As<ICaptureRepository>();
+			builder.Register(x => new PaymentTransactionRepository(x.ResolveNamed<ISimpleUnitOfWork>(ModuleName), x.Resolve<PaymentTransaction.Factory>())).As<IPaymentTransactionRepository>();
+			builder.Register(x => new AuthorizationRepository(x.ResolveNamed<ISimpleUnitOfWork>(ModuleName))).As<IAuthorizationRepository>();
+			builder.Register(x => new CaptureRepository(x.ResolveNamed<ISimpleUnitOfWork>(ModuleName))).As<ICaptureRepository>();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Domain.Log.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(x => new LoggingService(x.ResolveNamed<IUnitOfWorkFactory>(ModuleName), x.Resolve<IPaymentTransactionLogRepository>())).As<ILoggingService>();
+            builder.Register(x => new LoggingService(x.Resolve<IPaymentTransactionLogRepository>())).As<ILoggingService>();
         }
     }
 }

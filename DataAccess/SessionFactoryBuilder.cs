@@ -20,9 +20,9 @@ namespace DataAccess
             _maps = maps;
             var factory = CreateSessionFactory(moduleName, isolationLevel, Map);
 
-            builder.Register(x => new UnitOfWorkFactory(factory, isolationLevel))
+            builder.Register(x => new SimpleUnitOfWork(factory))
                 .InstancePerLifetimeScope()
-                .Named<IUnitOfWorkFactory>(moduleName);
+                .Named<ISimpleUnitOfWork>(moduleName);
         }
 
         private void Map(MappingConfiguration mapping)
@@ -35,7 +35,7 @@ namespace DataAccess
 
         private ISessionFactory CreateSessionFactory(string moduleName, IsolationLevel isolationLevel, Action<MappingConfiguration> moduleMappings)
         {
-			string connectionString = @"yourConnectionString";
+			string connectionString = @"Data Source=mdzhwcdb01\itransaction;Initial Catalog=idp;User Id=appuser;Password=1234;";
 			connectionString += ";Application Name=" + moduleName;
 
             return Fluently.Configure()

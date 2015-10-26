@@ -11,7 +11,7 @@ namespace Domain.Transfer.Module
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<TransactionTransfer>();
-            builder.Register(x => new TransactionTransferService(x.ResolveNamed<IUnitOfWorkFactory>(ModuleName), x.Resolve<ITransactionTransferRepository>())).As<ITransactionTransferService>();
+            builder.Register(x => new TransactionTransferService(x.Resolve<ITransactionTransferRepository>())).As<ITransactionTransferService>();
         }
     }
 }

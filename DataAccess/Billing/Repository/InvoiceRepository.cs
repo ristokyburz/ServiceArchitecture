@@ -10,33 +10,24 @@ namespace DataAccess.Billing.Repository
     {
         private readonly Invoice.Factory _invoiceFactory;
 
-        public InvoiceRepository(IUnitOfWorkFactory unitOfWorkFactory, Invoice.Factory invoiceFactory) : base(unitOfWorkFactory)
+        public InvoiceRepository(ISimpleUnitOfWork unitOfWork, Invoice.Factory invoiceFactory) : base(unitOfWork)
         {
             _invoiceFactory = invoiceFactory;
         }
 
         public Invoice GetInvoice(string transactionId)
         {
-            using (var unitOfWork = UnitOfWorkFactory.UnitOfWork())
-            {
-                var charge = unitOfWork
-                    .Session
-                    .Query<Charge>()
-                    .SingleOrDefault(x => x.TransactionId == transactionId);
+            var charge = UnitOfWork
+                .Session
+                .Query<Charge>()
+                .SingleOrDefault(x => x.TransactionId == transactionId);
 
-                unitOfWork.Commit();
-
-                return _invoiceFactory(charge);
-            }
+            return _invoiceFactory(charge);
         }
 
         public void Save(Invoice invoice)
         {
-            using (var unitOfWork = UnitOfWorkFactory.UnitOfWork())
-            {
-                unitOfWork.Session.SaveOrUpdate(invoice.Charge);
-                unitOfWork.Commit();
-            }
+            UnitOfWork.Session.SaveOrUpdate(invoice.Charge);
         }
     }
 }

@@ -52,15 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Container\NamedModule.cs" />
-    <Compile Include="DataAccess\IUnitOfWork.cs" />
-    <Compile Include="DataAccess\IUnitOfWork2.cs" />
-    <Compile Include="DataAccess\IUnitOfWorkFactory.cs" />
+    <Compile Include="DataAccess\ISimpleUnitOfWork.cs" />
     <Compile Include="DataAccess\MsSqlExceptionConverter.cs" />
+    <Compile Include="DataAccess\SimpleUnitOfWork.cs" />
     <Compile Include="DataAccess\TransientErrorException.cs" />
-    <Compile Include="DataAccess\UnitOfWork.cs" />
-    <Compile Include="DataAccess\UnitOfWork2.cs" />
-    <Compile Include="DataAccess\UnitOfWorkFactory.cs" />
-    <Compile Include="DataAccess\UnitOfWorkNotifyEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

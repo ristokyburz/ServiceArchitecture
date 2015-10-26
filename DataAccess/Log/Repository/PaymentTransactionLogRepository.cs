@@ -9,34 +9,25 @@ namespace DataAccess.Log.Repository
 {
     public class PaymentTransactionLogRepository : RepositoryBase, IPaymentTransactionLogRepository
     {
-        public PaymentTransactionLogRepository(IUnitOfWorkFactory unitOfWorkFactory)
-            : base(unitOfWorkFactory)
+        public PaymentTransactionLogRepository(ISimpleUnitOfWork unitOfWork)
+            : base(unitOfWork)
         {
         }
 
         public ICollection<PaymentTransactionLog> GetPaymentTransactionLogs(string transactionId)
         {
-            using (var unitOfWork = UnitOfWorkFactory.UnitOfWork())
-            {
-                var logs = unitOfWork
-                    .Session
-                    .Query<PaymentTransactionLog>()
-                    .Where(x => x.TransactionId == transactionId)
-                    .ToList();
+            var logs = UnitOfWork
+                .Session
+                .Query<PaymentTransactionLog>()
+                .Where(x => x.TransactionId == transactionId)
+                .ToList();
 
-                unitOfWork.Commit();
-
-                return logs;
-            }
+            return logs;
         }
 
         public void SavePaymentTransactionLog(PaymentTransactionLog paymentTransactionLog)
         {
-            using (var unitOfWork = UnitOfWorkFactory.UnitOfWork())
-            {
-                unitOfWork.Session.SaveOrUpdate(paymentTransactionLog);
-                unitOfWork.Commit();
-            }
+            UnitOfWork.Session.SaveOrUpdate(paymentTransactionLog);
         }
     }
 }
