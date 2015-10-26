@@ -35,7 +35,7 @@ namespace DataAccess
 
         private ISessionFactory CreateSessionFactory(string moduleName, IsolationLevel isolationLevel, Action<MappingConfiguration> moduleMappings)
         {
-			string connectionString = @"Data Source=mdzhwcdb01\itransaction;Initial Catalog=idp;User Id=appuser;Password=1234;";
+			string connectionString = @"yourConnectionString";
 			connectionString += ";Application Name=" + moduleName;
 
             return Fluently.Configure()
